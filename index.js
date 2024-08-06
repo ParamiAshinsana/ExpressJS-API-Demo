@@ -14,9 +14,8 @@ app.get('/',(req,res)=>{
     res.send("Hello from Node API78");
 });
 
+// Create Student
 app.post('/api/students',async(req,res)=>{
-    // console.log(req.body);
-    // res.send(req.body);
     try{
          const student = await Student.create(req.body);
          res.status(200).json(student);
@@ -25,6 +24,58 @@ app.post('/api/students',async(req,res)=>{
     }
 });
 
+// Get Student
+app.get('/api/students',async(req,res)=>{
+    try{
+         const students = await Student.find({});
+         res.status(200).json(students);
+    }catch(error){
+        res.status(500).json({message: error.message});
+    }
+});
+
+// Get Selected Student
+app.get('/api/students/:id',async(req,res)=>{
+    try{
+        const { id } = req.params;
+        const students = await Student.findById(id);
+        res.status(200).json(students);
+    }catch(error){
+        res.status(500).json({message: error.message});
+    }
+});
+
+
+// Update Student
+app.put('/api/students/:id',async(req,res)=>{
+    try{
+        const { id } = req.params;
+        const student = await Student.findByIdAndUpdate(id,req.body);
+        if(!student){
+            return res.status(404).json({message: "not found student!"});
+        }
+
+        const updatedStudent = await Student.findById(id);
+        res.status(200).json(updatedStudent);
+    }catch(error){
+        res.status(500).json({message: error.message});
+    }
+});
+
+// Delete Student
+app.delete('/api/students/:id',async(req,res)=>{
+    try{
+        const { id } = req.params;
+        const students = await Student.findByIdAndDelete(id);
+        if(!students){
+            return res.status(404).json({message: "not found student!"});
+        }
+
+        res.status(200).json({message: "Deleted Successfully!"});
+    }catch(error){
+        res.status(500).json({message: error.message});
+    }
+});
 
 
 
