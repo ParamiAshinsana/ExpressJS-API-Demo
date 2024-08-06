@@ -4,12 +4,12 @@ const StudentSchema = mongoose.Schema(
     {
         name: {
             type: String,
-            required: [true, "Please Enter Product name !"],
+            required: [true, "Please Enter Student name !"],
 
         },
         address: {
             type: String,
-            required: [true, "Please Enter Product name !"],
+            required: [true, "Please Enter Student name !"],
 
         },
     },
