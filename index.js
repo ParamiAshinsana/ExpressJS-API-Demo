@@ -1,17 +1,22 @@
-const express = require('express')
-const mongoose = require('mongoose');
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import Student from './models/Student.js'; // Ensure this path is correct
+// const Student = require('./models/student.model');
 const app = express()
-const Student = require('./models/student.model.js');
+
+app.use(cors());
 
 app.use(express.json());
+
 
 app.listen(3000, ()=>{
     console.log("Server is running");
     
 });
 
-app.get('/',(req,res)=>{
-    res.send("Hello from Node API78");
+app.get('/getData',(req,res)=>{
+    res.send("Hello");
 });
 
 // Create Student
