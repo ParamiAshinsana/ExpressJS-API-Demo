@@ -93,18 +93,32 @@ app.put('/api/updateStudent/:studentId', async (req, res) => {
 // });
 
 // Delete Student
-app.delete('/api/deleteStudent/:id', async (req, res) => {
+app.delete('/api/deleteStudent/:studentId', async (req, res) => {
     try {
-        const { id } = req.params;
-        const student = await Student.findByIdAndDelete(id);
+        const { studentId } = req.params;
+        const student = await Student.findOneAndDelete({ studentId });
+
         if (!student) {
             return res.status(404).json({ message: "Student not found!" });
         }
-        res.status(200).json({ message: "Deleted Successfully!" });
+
+        res.status(200).json({ message: "Student deleted successfully!" });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+// app.delete('/api/deleteStudent/:id', async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const student = await Student.findByIdAndDelete(id);
+//         if (!student) {
+//             return res.status(404).json({ message: "Student not found!" });
+//         }
+//         res.status(200).json({ message: "Deleted Successfully!" });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/ExpressCrudApp', {
