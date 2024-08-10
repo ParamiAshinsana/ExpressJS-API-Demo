@@ -65,18 +65,32 @@ app.get('/api/getSelectedStudent/:id', async (req, res) => {
 });
 
 // Update Student
-app.put('/api/updateStudent/:id', async (req, res) => {
+app.put('/api/updateStudent/:studentId', async (req, res) => {
     try {
-        const { id } = req.params;
-        const student = await Student.findByIdAndUpdate(id, req.body, { new: true });
+        const { studentId } = req.params;
+        const student = await Student.findOneAndUpdate({ studentId }, req.body, { new: true });
+
         if (!student) {
             return res.status(404).json({ message: "Student not found!" });
         }
+
         res.status(200).json(student);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+// app.put('/api/updateStudent/:id', async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const student = await Student.findByIdAndUpdate(id, req.body, { new: true });
+//         if (!student) {
+//             return res.status(404).json({ message: "Student not found!" });
+//         }
+//         res.status(200).json(student);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
 
 // Delete Student
 app.delete('/api/deleteStudent/:id', async (req, res) => {
