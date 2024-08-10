@@ -6,17 +6,15 @@ const StudentSchema = mongoose.Schema(
         studentId: {
             type: String,
             required: [true, "Please Enter Student Id !"],
-
+            unique: true, // Enforce unique constraint
         },
         name: {
             type: String,
             required: [true, "Please Enter Student name !"],
-
         },
         address: {
             type: String,
             required: [true, "Please Enter Student name !"],
-
         },
     },
     {
