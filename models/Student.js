@@ -3,6 +3,11 @@ import mongoose from 'mongoose';
 
 const StudentSchema = mongoose.Schema(
     {
+        studentId: {
+            type: String,
+            required: [true, "Please Enter Student Id !"],
+
+        },
         name: {
             type: String,
             required: [true, "Please Enter Student name !"],
