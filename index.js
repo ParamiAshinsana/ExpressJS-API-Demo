@@ -51,18 +51,37 @@ app.get('/api/getStudents', async (req, res) => {
 });
 
 // Get Selected Student
-app.get('/api/getSelectedStudent/:id', async (req, res) => {
+app.get('/api/getSelectedStudent/:studentId', async (req, res) => {
+    const { studentId } = req.params;
+
     try {
-        const { id } = req.params;
-        const student = await Student.findById(id);
+        // Find the student by studentId
+        const student = await Student.findOne({ studentId });
+
+        // Check if the student was found
         if (!student) {
             return res.status(404).json({ message: "Student not found!" });
         }
+
+        // Respond with the found student
         res.status(200).json(student);
     } catch (error) {
+        // Handle any errors that occurred during the process
         res.status(500).json({ message: error.message });
     }
 });
+// app.get('/api/getSelectedStudent/:id', async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const student = await Student.findById(id);
+//         if (!student) {
+//             return res.status(404).json({ message: "Student not found!" });
+//         }
+//         res.status(200).json(student);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
 
 // Update Student
 app.put('/api/updateStudent/:studentId', async (req, res) => {
